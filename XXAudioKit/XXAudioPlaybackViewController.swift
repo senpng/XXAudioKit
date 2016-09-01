@@ -30,22 +30,34 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         }
     }
     var audioFilePath: String!
+    var audioData: NSData?
     var audioPlayer: AVAudioPlayer?;
     
     var meterUpdateDisplayLink: CADisplayLink?
     var timerUpdateDidplayLink: CADisplayLink?
     
-    convenience public init(filePath: String) {
-        self.init(nibName: "XXAudioPlaybackView", bundle: nil);
+    convenience init() {
+        let podBundle = NSBundle(forClass: XXAudioPlaybackViewController.self)
+        let bundlePath = podBundle.pathForResource("XXAudioKit", ofType: "bundle");
+        self.init(nibName: "XXAudioPlaybackView", bundle: NSBundle(path: bundlePath!));
+    }
+    
+    convenience public init(audioData: NSData) {
+        self.init();
+        self.audioData = audioData
+    }
+    
+    convenience public init(audioFilePath: String) {
+        self.init();
         
-        audioFilePath = filePath;
+        self.audioFilePath = audioFilePath;
     }
 
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         UIApplication.sharedApplication().idleTimerDisabled = true;
-        let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
         
         didChangedStatus();
     }

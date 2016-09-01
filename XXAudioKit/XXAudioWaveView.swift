@@ -1,9 +1,5 @@
 //
 //  XXAudioWaveView.swift
-//  XiaoXinTong
-//
-//  Created by 沈鹏 on 16/8/30.
-//  Copyright © 2016年 沈鹏. All rights reserved.
 //
 
 import UIKit
