@@ -5,13 +5,7 @@
 import UIKit
 import AVFoundation
 
-//public protocol XXAudioPlaybackViewControllerDelegate: NSObjectProtocol {
-//    func audioPlaybackController(controller: XXAudioPlaybackViewController, didFinishWithAudioAtPath filePath: String)
-//}
-
 public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-    
-//    public weak var delegate: XXAudioRecorderViewControllerDelegate?;
     
     public var buttonTintColor: UIColor?
     public var timeTintColor: UIColor?
@@ -29,7 +23,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             didChangedStatus()
         }
     }
-    var audioFilePath: String!
+    
     var audioData: NSData?
     var audioPlayer: AVAudioPlayer?;
     
@@ -47,17 +41,18 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         self.audioData = audioData
     }
     
-    convenience public init(audioFilePath: String) {
-        self.init();
-        
-        self.audioFilePath = audioFilePath;
-    }
-
     override public func viewDidLoad() {
         super.viewDidLoad()
         
         UIApplication.sharedApplication().idleTimerDisabled = true;
-        let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+        
+        if let buttonTintColor = buttonTintColor {
+            let _ = handleBtns.map { $0.tintColor = buttonTintColor }
+        }
+        
+        if let timeTintColor = timeTintColor {
+            timeLabel.tintColor = timeTintColor;
+        }
         
         didChangedStatus();
     }
@@ -110,10 +105,11 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             audioPlayer?.stop();
             audioPlayer = nil;
             
-            if let audioFilePath = audioFilePath {
+            if let audioData = audioData {
+                let _ = try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategorySoloAmbient)
+                
                 if audioPlayer == nil {
-                    let audioURL = NSURL(fileURLWithPath: audioFilePath, isDirectory: false)
-                    configPlayback(audioURL);
+                    configPlayback(audioData);
                 }
             }
             
@@ -149,13 +145,29 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
-    func configPlayback(url: NSURL) {
+//    func configPlayback(url: NSURL) {
+//        let session: AVAudioSession = AVAudioSession.sharedInstance()
+//        session.requestRecordPermission { granted in
+//            if granted {
+//                let _ = try? session.setActive(true)
+//                
+//                self.audioPlayer = try? AVAudioPlayer(contentsOfURL: url);
+//                self.audioPlayer?.delegate = self;
+//                self.audioPlayer?.meteringEnabled = true;
+//                self.audioPlayer?.prepareToPlay();
+//            } else {
+//                debugPrint("Recording permission has been denied")
+//            }
+//        }
+//    }
+    
+    func configPlayback(audioData: NSData) {
         let session: AVAudioSession = AVAudioSession.sharedInstance()
         session.requestRecordPermission { granted in
             if granted {
                 let _ = try? session.setActive(true)
                 
-                self.audioPlayer = try? AVAudioPlayer(contentsOfURL: url);
+                self.audioPlayer = try? AVAudioPlayer(data: audioData);
                 self.audioPlayer?.delegate = self;
                 self.audioPlayer?.meteringEnabled = true;
                 self.audioPlayer?.prepareToPlay();

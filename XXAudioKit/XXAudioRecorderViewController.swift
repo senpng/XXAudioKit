@@ -223,8 +223,9 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
             if granted {
                 let recordSettings: [String : AnyObject]  = [
                     AVFormatIDKey : NSNumber(unsignedInt: kAudioFormatLinearPCM),
-                    AVSampleRateKey : 44100.0,
-                    AVNumberOfChannelsKey : 2
+                    AVSampleRateKey : 8000.0,
+                    AVLinearPCMBitDepthKey: 16,
+                    AVNumberOfChannelsKey : 1
                 ]
                 self.audioRecorder = try? AVAudioRecorder(URL: url, settings: recordSettings)
                 guard let recorder = self.audioRecorder else {
