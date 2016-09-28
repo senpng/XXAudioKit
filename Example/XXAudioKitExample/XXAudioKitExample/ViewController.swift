@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XXAudioKit
 
 class ViewController: UIViewController {
 
@@ -18,6 +19,16 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated);
+        
+        
+        let audioRecorderVC = XXAudioRecorderViewController(audioFilePath: "")
+        audioRecorderVC.buttonTintColor = UIColor.orangeColor();
+        audioRecorderVC.waveColor = UIColor.orangeColor();
+        audioRecorderVC.presentInViewController(self, animated: true, completion: nil);
     }
 
 
