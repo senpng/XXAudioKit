@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C820485574CDA8A4336F1829 /* Pods_XXAudioKitExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B44EB247DACF35FC9A6F3330 /* Pods_XXAudioKitExample.framework */; };
 		FD1A66781D7598370041FC1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1A66771D7598370041FC1F /* AppDelegate.swift */; };
 		FD1A667A1D7598370041FC1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1A66791D7598370041FC1F /* ViewController.swift */; };
 		FD1A667D1D7598370041FC1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD1A667B1D7598370041FC1F /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5AC177A9FA930F3D901CA193 /* Pods-XXAudioKitExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XXAudioKitExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-XXAudioKitExample/Pods-XXAudioKitExample.release.xcconfig"; sourceTree = "<group>"; };
+		B44EB247DACF35FC9A6F3330 /* Pods_XXAudioKitExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_XXAudioKitExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1A66741D7598370041FC1F /* XXAudioKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XXAudioKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD1A66771D7598370041FC1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD1A66791D7598370041FC1F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		FD1A667E1D7598370041FC1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD1A66811D7598370041FC1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD1A66831D7598370041FC1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE2D47919EDDA92435964ECE /* Pods-XXAudioKitExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-XXAudioKitExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-XXAudioKitExample/Pods-XXAudioKitExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C820485574CDA8A4336F1829 /* Pods_XXAudioKitExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		777DD0471B4C1140FF95DAB3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FE2D47919EDDA92435964ECE /* Pods-XXAudioKitExample.debug.xcconfig */,
+				5AC177A9FA930F3D901CA193 /* Pods-XXAudioKitExample.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DAF8A2CFBEBD2D326F021B4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B44EB247DACF35FC9A6F3330 /* Pods_XXAudioKitExample.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FD1A666B1D7598370041FC1F = {
 			isa = PBXGroup;
 			children = (
 				FD1A66761D7598370041FC1F /* XXAudioKitExample */,
 				FD1A66751D7598370041FC1F /* Products */,
+				777DD0471B4C1140FF95DAB3 /* Pods */,
+				DAF8A2CFBEBD2D326F021B4D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD1A66861D7598370041FC1F /* Build configuration list for PBXNativeTarget "XXAudioKitExample" */;
 			buildPhases = (
+				B3457371F8A38E294CE28217 /* [CP] Check Pods Manifest.lock */,
 				FD1A66701D7598370041FC1F /* Sources */,
 				FD1A66711D7598370041FC1F /* Frameworks */,
 				FD1A66721D7598370041FC1F /* Resources */,
+				95E6FB1915E4B74C7AA4BF4F /* [CP] Embed Pods Frameworks */,
+				EB648B432ED065BBF9768D08 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		95E6FB1915E4B74C7AA4BF4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XXAudioKitExample/Pods-XXAudioKitExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3457371F8A38E294CE28217 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EB648B432ED065BBF9768D08 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XXAudioKitExample/Pods-XXAudioKitExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FD1A66701D7598370041FC1F /* Sources */ = {
@@ -249,23 +324,27 @@
 		};
 		FD1A66871D7598370041FC1F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE2D47919EDDA92435964ECE /* Pods-XXAudioKitExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XXAudioKitExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.XXAudioKitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
 		FD1A66881D7598370041FC1F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5AC177A9FA930F3D901CA193 /* Pods-XXAudioKitExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = XXAudioKitExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.XXAudioKitExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -288,6 +367,7 @@
 				FD1A66881D7598370041FC1F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
