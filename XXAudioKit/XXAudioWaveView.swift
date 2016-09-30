@@ -9,14 +9,22 @@ let kDefaultIdleAmplitude: CGFloat = 0.01;
 @IBDesignable
 public class XXAudioWaveView: UIView {
     
+    /// Define the wave's number, default is 1
     @IBInspectable public var numberOfWaves: Int = 1;
+    /// Define the wave's background color
     @IBInspectable public var waveColor: UIColor = UIColor.redColor();
+    /// Define the wave's width
     @IBInspectable public var waveWidth: CGFloat = 1.0;
+    /// Define the wave's amplitude, default is 1.0
     @IBInspectable public var amplitude: CGFloat = 1.0;
+    /// Define the wave's density, default is 1.0
     @IBInspectable public var density: CGFloat = 1.0;
+    /// Define the wave's frequency, default is 2.0
     @IBInspectable public var frequency: CGFloat = 2.0;
     
+    /// Define the wave's phaseShift, default is -0.15
     @IBInspectable public var phaseShift: CGFloat = -0.15;
+    /// Define the wave's phase, default is 0.0
     @IBInspectable public var phase: CGFloat = 0.0;
     
     public func updateWithLevel(level: CGFloat) {
