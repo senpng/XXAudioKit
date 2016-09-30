@@ -2,6 +2,8 @@
 
 XXAudioKit is a simple class for audio playing and the audio recording apps.
 
+![XXAudioKit](XXAudioKit.gif)
+
 ## Usage
 
 ### Creat a new XXAudioPlaybackViewController
@@ -101,7 +103,7 @@ source 'https://github.com/CocoaPods/Specs.git'
     target 'Your Target Name' do
         use_frameworks!
         // ...
-        pod 'XXAudioKit', :path => '../../'
+        pod 'XXAudioKit', :git => 'git@github.com:xxopensource/XXAudioKit.git'
         // ...
     end
 ```
