@@ -317,7 +317,7 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
             middleBtn.setTitle("继续录音", forState: .Normal);
             rightBtn.setTitle("停止", forState: .Normal);
         case .CompleteRecording:
-            middleBtn.setTitle("播放111", forState: .Normal);
+            middleBtn.setTitle("播放", forState: .Normal);
             rightBtn.setTitle("完成", forState: .Normal);
         case .PrePlayback:
             middleBtn.setTitle("播放", forState: .Normal);
