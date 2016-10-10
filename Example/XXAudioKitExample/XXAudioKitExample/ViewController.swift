@@ -47,7 +47,10 @@ class ViewController: UIViewController {
     
     func buttonClick(sender: UIButton) {
         if sender.tag == 1 {
-            let audioPlaybackVC = XXAudioPlaybackViewController()
+            let musicUrl = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("梁静茹-偶阵雨", ofType: "mp3")!)
+            let data =  NSData(contentsOfURL: musicUrl)
+            
+            let audioPlaybackVC = XXAudioPlaybackViewController(audioData: data!)
             audioPlaybackVC.buttonTintColor = UIColor.orangeColor()
             audioPlaybackVC.waveColor = UIColor.orangeColor()
             audioPlaybackVC.presentInViewController(self, animated: true, completion: nil)
