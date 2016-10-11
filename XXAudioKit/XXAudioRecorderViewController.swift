@@ -176,14 +176,14 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
                 self.stopUpdatingTimer();
             }
             
-            startUpdatingMeter();
+            stopUpdatingMeter();
             
         case .Recording:
             
             if let audioRecorder = audioRecorder {
                 audioRecorder.record();
                 startUpdatingTimer();
-//                startUpdatingMeter();
+                startUpdatingMeter();
             } else {
                 status = .CompleteRecording;
             }

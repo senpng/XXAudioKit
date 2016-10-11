@@ -21,11 +21,21 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
     /// The Button is show play time
     @IBOutlet var handleBtns: [UIButton]!
     
+    /// The timeLabel is show the time schedule of the play
+    @IBOutlet weak var scheduleLabel: UILabel!
+    /// The timeLabel is show play total time
+    @IBOutlet weak var totalTimeLabel: UILabel!
+    /// The volumeSlider is show Sound progress bar
+    @IBOutlet weak var volumeSlider: UISlider!
+    /// The playProgressSlider is show playback progress bar
+    @IBOutlet weak var playProgressSlider: UISlider!
     /**
      *  State of AudioPlay
      
      - PrePlayback:      Prepare
      - Playback:         Play
+     @IBOutlet weak var playProgressSlider: UISlider!
+     @IBOutlet weak var playProgressSlider: UISlider!
      - PausePlayback:    Pause
      - CompletePlayback: Complete
      */
@@ -71,6 +81,17 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             timeLabel.tintColor = timeTintColor;
         }
         
+        volumeSlider.value = 0.4
+        volumeSlider.minimumValue = 0.0
+        volumeSlider.maximumValue = 1.0
+        volumeSlider.setThumbImage(UIImage(named: "player_progress_icon"), forState: .Normal)
+        audioPlayer?.volume = volumeSlider.value
+        
+        playProgressSlider.minimumValue = 0.0
+        playProgressSlider.maximumValue = 1.0
+        playProgressSlider.setThumbImage(UIImage(named: "player_progress_icon"), forState: .Normal)
+        playProgressSlider.value = 0
+        
         didChangedStatus();
     }
     
@@ -79,7 +100,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         self.modalPresentationStyle = .Custom;
         vc.presentViewController(self, animated: flag, completion: completion);
     }
-    
+        
     // MARK: - Handles
     @IBAction func leftBtnHandle(sender: UIButton) {
         
@@ -104,6 +125,27 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             self.dismissViewControllerAnimated(true, completion: nil);
             break;
         }
+    }
+    
+    @IBAction func volumeAction(sender: UISlider) {
+        audioPlayer?.volume = sender.value;
+    }
+    
+    @IBAction func playProgressAction(sender: UISlider) {
+        
+        if let audioPlayer = audioPlayer {
+            var currentTime = Int(audioPlayer.currentTime)
+            
+            if sender.value == playProgressSlider.maximumValue {
+                sender.value = playProgressSlider.maximumValue
+                currentTime = Int(audioPlayer.duration)
+            }
+            
+            audioPlayer.currentTime = Double(sender.value) * (audioPlayer.duration)
+            
+            scheduleLabel.text = "\(currentTime/3600 > 9 ? "" : 0)\(currentTime/3600):\(currentTime/60%60 > 9 ? "" : 0)\(currentTime/60%60):\(currentTime%60 > 9 ? "" : 0)\(currentTime%60)"
+        }
+
     }
     
     // MARK: - StatusChanged
@@ -234,16 +276,35 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
     func updateTimer() {
         
         var timeCount = 0;
+        var timeProgress = 0;
+        var totalTime = 0;
+        var sliderValue = playProgressSlider.value;
         
         switch status {
-        case .CompletePlayback, .PrePlayback:
+        case .PrePlayback:
             if let audioPlay = audioPlayer {
                 timeCount = Int(audioPlay.duration);
+                timeProgress = Int(audioPlay.currentTime)
+                totalTime = Int(audioPlay.duration);
+            }
+            
+        case .CompletePlayback:
+            if let audioPlay = audioPlayer {
+                timeCount = Int(audioPlay.duration);
+                timeProgress = Int(audioPlay.duration)
+                totalTime = Int(audioPlay.duration);
             }
             
         case .Playback:
             if let audioPlay = audioPlayer {
                 timeCount = Int(audioPlay.duration - audioPlay.currentTime);
+                timeProgress = Int(audioPlay.currentTime+1);
+                if audioPlay.currentTime < audioPlay.duration {
+                    sliderValue = Float(audioPlay.currentTime/audioPlay.duration);
+                }else {
+                    sliderValue = 1;
+                }
+                totalTime = Int(audioPlay.duration);
             }
             
         default:
@@ -251,6 +312,13 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         }
         
         timeLabel.text = "\(timeCount/3600 > 9 ? "" : 0)\(timeCount/3600):\(timeCount/60%60 > 9 ? "" : 0)\(timeCount/60%60):\(timeCount%60 > 9 ? "" : 0)\(timeCount%60)";
+        
+        totalTimeLabel.text = "\(totalTime/3600 > 9 ? "" : 0)\(totalTime/3600):\(totalTime/60%60 > 9 ? "" : 0)\(totalTime/60%60):\(totalTime%60 > 9 ? "" : 0)\(totalTime%60)"
+        
+        scheduleLabel.text = "\(timeProgress/3600 > 9 ? "" : 0)\(timeProgress/3600):\(timeProgress/60%60 > 9 ? "" : 0)\(timeProgress/60%60):\(timeProgress%60 > 9 ? "" : 0)\(timeProgress%60)"
+        
+        
+        playProgressSlider.value = sliderValue;
     }
     
     /**
@@ -265,6 +333,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
      *  Stop CADisplayLink timer
      */
     func stopUpdatingTimer() {
+
         timerUpdateDidplayLink?.invalidate();
         timerUpdateDidplayLink = nil;
     }

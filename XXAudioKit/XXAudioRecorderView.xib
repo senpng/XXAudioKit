@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XXAudioRecorderViewController" customModule="XiaoXinTong" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XXAudioRecorderViewController" customModule="XXAudioKit" customModuleProvider="target">
             <connections>
                 <outlet property="timeLabel" destination="fhg-E6-XlQ" id="b5Z-Oe-LqF"/>
                 <outlet property="view" destination="iN0-l3-epB" id="kUE-7s-vf3"/>
@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-gt-YWK" customClass="XXAudioWaveView" customModule="XiaoXinTong" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hm-gt-YWK" customClass="XXAudioWaveView" customModule="XXAudioKit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="223" width="600" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -39,7 +39,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkR-H5-c4h" customClass="XXAudioWaveView" customModule="XiaoXinTong" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkR-H5-c4h" customClass="XXAudioWaveView" customModule="XXAudioKit" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="223" width="600" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>

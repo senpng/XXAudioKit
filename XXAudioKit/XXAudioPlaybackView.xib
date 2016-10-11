@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="XXAudioPlaybackViewController" customModule="XXAudioKit" customModuleProvider="target">
             <connections>
+                <outlet property="playProgressSlider" destination="PZR-c6-DJo" id="DIC-l5-HaT"/>
+                <outlet property="scheduleLabel" destination="7zm-7x-40l" id="rZD-91-HpI"/>
                 <outlet property="timeLabel" destination="fhg-E6-XlQ" id="b5Z-Oe-LqF"/>
+                <outlet property="totalTimeLabel" destination="UvX-SY-gsR" id="WTq-Bj-KYK"/>
                 <outlet property="view" destination="iN0-l3-epB" id="kUE-7s-vf3"/>
+                <outlet property="volumeSlider" destination="iri-dB-PQf" id="0sK-0f-8KV"/>
                 <outletCollection property="handleBtns" destination="Nfr-Sx-EMc" collectionClass="NSMutableArray" id="CfO-xh-4aj"/>
                 <outletCollection property="handleBtns" destination="tqy-Ja-Uyq" collectionClass="NSMutableArray" id="XYy-Pl-uiG"/>
                 <outletCollection property="waveViews" destination="LVw-f2-ylN" collectionClass="NSMutableArray" id="afK-KN-yU4"/>
@@ -144,26 +149,111 @@
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhg-E6-XlQ">
-                                <rect key="frame" x="257" y="66" width="86" height="24"/>
+                                <rect key="frame" x="257" y="40" width="86" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="iri-dB-PQf">
+                                <rect key="frame" x="88" y="94" width="474" height="31"/>
+                                <connections>
+                                    <action selector="volumeAction:" destination="-1" eventType="valueChanged" id="JjZ-Lz-hKx"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Volume" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdr-bl-7it">
+                                <rect key="frame" x="10" y="98" width="60" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="1ZV-E4-DIb"/>
+                                    <constraint firstAttribute="width" constant="60" id="Aog-9F-F7V"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Aog-9F-F7V"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zm-7x-40l">
+                                <rect key="frame" x="10" y="139" width="72" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PZR-c6-DJo">
+                                <rect key="frame" x="95" y="135" width="414" height="31"/>
+                                <connections>
+                                    <action selector="playProgressAction:" destination="-1" eventType="valueChanged" id="Hkb-3r-pmL"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvX-SY-gsR">
+                                <rect key="frame" x="522" y="139" width="80" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="96a-ae-Gzf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="UvX-SY-gsR" firstAttribute="leading" secondItem="PZR-c6-DJo" secondAttribute="trailing" constant="15" id="1NL-3N-HWb"/>
+                            <constraint firstItem="UvX-SY-gsR" firstAttribute="centerY" secondItem="PZR-c6-DJo" secondAttribute="centerY" id="1hg-bK-dlq"/>
                             <constraint firstItem="fhg-E6-XlQ" firstAttribute="centerX" secondItem="XXg-i1-6eP" secondAttribute="centerX" id="3Sr-pr-CZb"/>
+                            <constraint firstItem="7zm-7x-40l" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" constant="10" id="4cg-zb-tlr"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="top" secondItem="fhg-E6-XlQ" secondAttribute="bottom" constant="30" id="6HL-pP-pE5"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="qdr-bl-7it" secondAttribute="trailing" constant="10" id="71z-KX-DhM"/>
                             <constraint firstItem="LVw-f2-ylN" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" id="7Vu-HO-uwK"/>
                             <constraint firstItem="TZq-Xc-9J4" firstAttribute="centerX" secondItem="LVw-f2-ylN" secondAttribute="centerX" id="Cnx-F6-nsd"/>
-                            <constraint firstItem="fhg-E6-XlQ" firstAttribute="top" secondItem="XXg-i1-6eP" secondAttribute="top" constant="66" id="USp-Uw-rsz"/>
+                            <constraint firstItem="UvX-SY-gsR" firstAttribute="baseline" secondItem="7zm-7x-40l" secondAttribute="baseline" id="EQI-Ts-ooT"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="qdr-bl-7it" secondAttribute="trailing" constant="10" id="FnU-OC-330"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="qdr-bl-7it" secondAttribute="trailing" constant="20" id="Mjr-Sh-S2m"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="top" secondItem="qdr-bl-7it" secondAttribute="bottom" constant="-25" id="Q68-hi-yCn"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="fhg-E6-XlQ" secondAttribute="trailing" constant="-283" id="Qvf-o6-Ouh"/>
+                            <constraint firstItem="fhg-E6-XlQ" firstAttribute="top" secondItem="XXg-i1-6eP" secondAttribute="top" constant="40" id="USp-Uw-rsz"/>
                             <constraint firstAttribute="bottom" secondItem="Oes-sc-UYF" secondAttribute="bottom" id="VTu-WL-gHG"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" constant="60" id="Vnd-Zn-rze"/>
                             <constraint firstAttribute="trailing" secondItem="Oes-sc-UYF" secondAttribute="trailing" id="Xak-hx-CIH"/>
                             <constraint firstItem="TZq-Xc-9J4" firstAttribute="width" secondItem="LVw-f2-ylN" secondAttribute="width" id="XcW-O8-Fgf"/>
+                            <constraint firstItem="Oes-sc-UYF" firstAttribute="trailing" secondItem="TZq-Xc-9J4" secondAttribute="trailing" id="ZDZ-d3-P6F"/>
+                            <constraint firstItem="UvX-SY-gsR" firstAttribute="leading" secondItem="PZR-c6-DJo" secondAttribute="trailing" constant="10" id="cct-iv-Wfd"/>
                             <constraint firstAttribute="trailing" secondItem="LVw-f2-ylN" secondAttribute="trailing" id="dJd-mo-NYi"/>
+                            <constraint firstItem="qdr-bl-7it" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" constant="10" id="dYO-dH-S5b"/>
+                            <constraint firstItem="UvX-SY-gsR" firstAttribute="trailing" secondItem="XXg-i1-6eP" secondAttribute="trailingMargin" constant="10" id="ejo-Db-jaa"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="qdr-bl-7it" secondAttribute="trailing" constant="10" id="foa-aO-8iw"/>
+                            <constraint firstAttribute="trailing" secondItem="iri-dB-PQf" secondAttribute="trailing" constant="40" id="gFb-1X-x90"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="centerX" secondItem="XXg-i1-6eP" secondAttribute="centerX" id="gxR-Fh-Pab"/>
+                            <constraint firstItem="iri-dB-PQf" firstAttribute="leading" secondItem="qdr-bl-7it" secondAttribute="trailing" constant="10" id="jAa-aU-Qhr"/>
+                            <constraint firstItem="PZR-c6-DJo" firstAttribute="leading" secondItem="7zm-7x-40l" secondAttribute="trailing" constant="15" id="lP2-JJ-NFu"/>
+                            <constraint firstItem="qdr-bl-7it" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" constant="20" id="nL1-BP-aQ0"/>
                             <constraint firstItem="TZq-Xc-9J4" firstAttribute="height" secondItem="LVw-f2-ylN" secondAttribute="height" id="tPe-ln-AiH"/>
+                            <constraint firstAttribute="trailing" secondItem="UvX-SY-gsR" secondAttribute="trailing" constant="8" id="tVr-ev-ezf"/>
+                            <constraint firstItem="PZR-c6-DJo" firstAttribute="centerY" secondItem="7zm-7x-40l" secondAttribute="centerY" id="tog-aK-w5W"/>
                             <constraint firstItem="Oes-sc-UYF" firstAttribute="leading" secondItem="XXg-i1-6eP" secondAttribute="leading" id="u4p-88-Z3L"/>
                             <constraint firstAttribute="bottom" secondItem="LVw-f2-ylN" secondAttribute="bottom" constant="180" id="uWZ-ty-ptf"/>
+                            <constraint firstItem="7zm-7x-40l" firstAttribute="top" secondItem="qdr-bl-7it" secondAttribute="bottom" constant="20" id="ui2-03-P2c"/>
+                            <constraint firstAttribute="trailing" secondItem="PZR-c6-DJo" secondAttribute="trailing" constant="40" id="vOa-mT-pHd"/>
                             <constraint firstItem="TZq-Xc-9J4" firstAttribute="centerY" secondItem="LVw-f2-ylN" secondAttribute="centerY" id="yd1-b6-Kux"/>
+                            <constraint firstItem="qdr-bl-7it" firstAttribute="centerY" secondItem="iri-dB-PQf" secondAttribute="centerY" id="zs7-oK-0Mo"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="nL1-BP-aQ0"/>
+                                <exclude reference="71z-KX-DhM"/>
+                                <exclude reference="FnU-OC-330"/>
+                                <exclude reference="Q68-hi-yCn"/>
+                                <exclude reference="Qvf-o6-Ouh"/>
+                                <exclude reference="Vnd-Zn-rze"/>
+                                <exclude reference="foa-aO-8iw"/>
+                                <exclude reference="gxR-Fh-Pab"/>
+                                <exclude reference="jAa-aU-Qhr"/>
+                                <exclude reference="vOa-mT-pHd"/>
+                                <exclude reference="Xak-hx-CIH"/>
+                                <exclude reference="cct-iv-Wfd"/>
+                                <exclude reference="tVr-ev-ezf"/>
+                            </mask>
+                        </variation>
                     </view>
                     <blurEffect style="extraLight"/>
                 </visualEffectView>
