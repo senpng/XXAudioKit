@@ -120,7 +120,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         
         switch status {
         case .PausePlayback, .Playback:
-            status = .CompletePlayback;
+            status = .PrePlayback;
         default:
             self.dismissViewControllerAnimated(true, completion: nil);
             break;
@@ -137,7 +137,6 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             var currentTime = Int(audioPlayer.currentTime)
             
             if sender.value == playProgressSlider.maximumValue {
-                sender.value = playProgressSlider.maximumValue
                 currentTime = Int(audioPlayer.duration)
             }
             
@@ -176,6 +175,12 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
                 }
             }
             
+            var totalTime = 0;
+            if let audioPlay = audioPlayer {
+                totalTime = Int(audioPlay.duration);
+                totalTimeLabel.text = "\(totalTime/3600 > 9 ? "" : 0)\(totalTime/3600):\(totalTime/60%60 > 9 ? "" : 0)\(totalTime/60%60):\(totalTime%60 > 9 ? "" : 0)\(totalTime%60)"
+            }
+            
             self.startUpdatingTimer();
             delay(0.1) {
                 self.stopUpdatingTimer();
@@ -205,6 +210,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
             audioPlayer?.stop();
             audioPlayer = nil;
             status = .PrePlayback;
+            
         }
     }
     
@@ -277,43 +283,34 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         
         var timeCount = 0;
         var timeProgress = 0;
-        var totalTime = 0;
         var sliderValue = playProgressSlider.value;
         
         switch status {
         case .PrePlayback:
             if let audioPlay = audioPlayer {
                 timeCount = Int(audioPlay.duration);
-                timeProgress = Int(audioPlay.currentTime)
-                totalTime = Int(audioPlay.duration);
+                sliderValue = 0
             }
             
         case .CompletePlayback:
             if let audioPlay = audioPlayer {
                 timeCount = Int(audioPlay.duration);
-                timeProgress = Int(audioPlay.duration)
-                totalTime = Int(audioPlay.duration);
+                timeProgress = Int(audioPlay.currentTime)
+                sliderValue = 1
             }
             
         case .Playback:
             if let audioPlay = audioPlayer {
                 timeCount = Int(audioPlay.duration - audioPlay.currentTime);
-                timeProgress = Int(audioPlay.currentTime+1);
-                if audioPlay.currentTime < audioPlay.duration {
-                    sliderValue = Float(audioPlay.currentTime/audioPlay.duration);
-                }else {
-                    sliderValue = 1;
-                }
-                totalTime = Int(audioPlay.duration);
+                timeProgress = Int(audioPlay.currentTime);
+                sliderValue = Float(audioPlay.currentTime/audioPlay.duration);
             }
-            
+       
         default:
             break;
         }
         
         timeLabel.text = "\(timeCount/3600 > 9 ? "" : 0)\(timeCount/3600):\(timeCount/60%60 > 9 ? "" : 0)\(timeCount/60%60):\(timeCount%60 > 9 ? "" : 0)\(timeCount%60)";
-        
-        totalTimeLabel.text = "\(totalTime/3600 > 9 ? "" : 0)\(totalTime/3600):\(totalTime/60%60 > 9 ? "" : 0)\(totalTime/60%60):\(totalTime%60 > 9 ? "" : 0)\(totalTime%60)"
         
         scheduleLabel.text = "\(timeProgress/3600 > 9 ? "" : 0)\(timeProgress/3600):\(timeProgress/60%60 > 9 ? "" : 0)\(timeProgress/60%60):\(timeProgress%60 > 9 ? "" : 0)\(timeProgress%60)"
         
