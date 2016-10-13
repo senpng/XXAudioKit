@@ -20,15 +20,28 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet var waveViews: [XXAudioWaveView]!
     @IBOutlet var handleBtns: [UIButton]!
-    
+    /**
+     *  State of The recording
+     
+     - PreRecording:      Prepare Recording
+     - Recording:         Recording
+     - PauseRecording:    Pause Recording
+     - CompleteRecording: Completed Recording
+     - PrePlayback:       Prepare Play
+     - Playback:          Play
+     - PausePlayback:     Pause
+     - CompletePlayback:  Completed Play
+     */
     enum XXAudioStatus: UInt {
         case PreRecording = 0, Recording, PauseRecording, CompleteRecording, PrePlayback, Playback, PausePlayback, CompletePlayback
     }
+    /// Set the initial state of recording equipment
     var status: XXAudioStatus = .PreRecording {
         didSet {
             didChangedStatus()
         }
     }
+    
     var audioFilePath: String?
     var audioPlayer: AVAudioPlayer?;
     var audioRecorder: AVAudioRecorder?;
@@ -48,7 +61,7 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         self.init();
         tempAudioFilePath = audioFilePath;
         self.audioFilePath = audioFilePath;
-        status = .PrePlayback;
+        status = .PreRecording;
     }
  
     override public func viewDidLoad() {
@@ -73,10 +86,20 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
     }
     
     // MARK: - Handles
+    /**
+     *  Click on the button on the left
+     
+     - parameter sender:
+     */
     @IBAction func leftBtnHandle(sender: UIButton) {
         status = .PreRecording;
     }
     
+    /**
+     *  Click on the button on the middle
+     
+     - parameter sender:
+     */
     @IBAction func middleBtnHandle(sender: UIButton) {
         
         switch status {
@@ -97,6 +120,11 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
+    /**
+     *  Click on the button on the right
+     
+     - parameter sender:
+     */
     @IBAction func rightBtnHandle(sender: UIButton) {
         
         switch status {
@@ -222,6 +250,11 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
+    /**
+     *  Configuration recording parameters
+     
+     - parameter url:
+     */
     func configRecorder(url: NSURL) {
         let session: AVAudioSession = AVAudioSession.sharedInstance()
         session.requestRecordPermission { granted in
@@ -247,6 +280,11 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
+    /**
+     *  Configuration recording play parameters
+     
+     - parameter url:
+     */
     func configPlayback(url: NSURL) {
         let session: AVAudioSession = AVAudioSession.sharedInstance()
         session.requestRecordPermission { granted in
@@ -264,6 +302,9 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
+    /**
+     *  Update button's title
+     */
     func updateButtons() {
         let leftBtn = handleBtns[0];
         let middleBtn = handleBtns[1];

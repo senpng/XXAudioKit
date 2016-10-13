@@ -7,23 +7,40 @@ import AVFoundation
 
 public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
+    /// The color of the button's title
     public var buttonTintColor: UIColor?
+    /// The tintColor of the timeLabel
     public var timeTintColor: UIColor?
+    /// The color of the waveViews
     public var waveColor: UIColor?
     
+    /// The timeLabel is show play time
     @IBOutlet weak var timeLabel: UILabel!
+    /// The custom view is show wave view animation
     @IBOutlet var waveViews: [XXAudioWaveView]!
+    /// The Button is show play time
     @IBOutlet var handleBtns: [UIButton]!
     
+    /**
+     *  State of AudioPlay
+     
+     - PrePlayback:      Prepare
+     - Playback:         Play
+     - PausePlayback:    Pause
+     - CompletePlayback: Complete
+     */
     enum XXAudioPlaybackStatus: UInt {
         case PrePlayback, Playback, PausePlayback, CompletePlayback
     }
-    var status: XXAudioPlaybackStatus = .PrePlayback {
+    
+    /// Initialize the state of play button
+    var status: XXAudioPlaybackStatus = .Playback {
         didSet {
             didChangedStatus()
         }
     }
     
+    /// The data of audio playback
     var audioData: NSData?
     var audioPlayer: AVAudioPlayer?;
     
@@ -56,6 +73,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         
         didChangedStatus();
     }
+    
     
     public func presentInViewController(vc: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
         self.modalPresentationStyle = .Custom;
@@ -95,13 +113,16 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         dispatch_after(time, dispatch_get_main_queue(), block)
     }
     
+    /**
+     *  Change the state of play
+     */
     func didChangedStatus() {
         
         self.updateButtons();
         
         switch status {
         case .PrePlayback:
-            
+            /// stop
             audioPlayer?.stop();
             audioPlayer = nil;
             
@@ -161,6 +182,11 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
 //        }
 //    }
     
+    /**
+     *   Set audio player's parameters and agent
+     
+     - parameter audioData: audioPlay's data
+     */
     func configPlayback(audioData: NSData) {
         let session: AVAudioSession = AVAudioSession.sharedInstance()
         session.requestRecordPermission { granted in
@@ -177,6 +203,9 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         }
     }
     
+    /**
+     *  According to the state of play set button's title
+     */
     func updateButtons() {
         let leftBtn = handleBtns[0];
         let rightBtn = handleBtns[1];
@@ -198,6 +227,10 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
     }
     
     // MARK: - Update Time
+    
+    /**
+     *  Update the playing time
+     */
     func updateTimer() {
         
         var timeCount = 0;
@@ -220,12 +253,17 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         timeLabel.text = "\(timeCount/3600 > 9 ? "" : 0)\(timeCount/3600):\(timeCount/60%60 > 9 ? "" : 0)\(timeCount/60%60):\(timeCount%60 > 9 ? "" : 0)\(timeCount%60)";
     }
     
+    /**
+     *  Open CADisplayLink timer
+     */
     func startUpdatingTimer() {
         timerUpdateDidplayLink?.invalidate();
         timerUpdateDidplayLink = CADisplayLink(target: self, selector: #selector(XXAudioRecorderViewController.updateTimer));
         timerUpdateDidplayLink?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes);
     }
-    
+    /**
+     *  Stop CADisplayLink timer
+     */
     func stopUpdatingTimer() {
         timerUpdateDidplayLink?.invalidate();
         timerUpdateDidplayLink = nil;
@@ -236,6 +274,7 @@ public class XXAudioPlaybackViewController: UIViewController, AVAudioRecorderDel
         var normalizedValue: CGFloat = 0.0;
         
         if let audioPlayer = audioPlayer where audioPlayer.playing == true {
+            /* call to refresh meter values */
             audioPlayer.updateMeters();
             normalizedValue = pow(10.0, CGFloat(audioPlayer.averagePowerForChannel(0)) / 20.0)
         }
