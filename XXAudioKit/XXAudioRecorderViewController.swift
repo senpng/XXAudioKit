@@ -6,7 +6,7 @@ import UIKit
 import AVFoundation
 
 public protocol XXAudioRecorderViewControllerDelegate: NSObjectProtocol {
-    func audioRecorderController(controller: XXAudioRecorderViewController, didFinishWithAudioAtPath filePath: String)
+    func audioRecorderController(controller: XXAudioRecorderViewController, didFinishWithAudioAtPath filePath: String?)
 }
 
 public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -107,11 +107,16 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
             status = .CompletePlayback;
             
         case .PreRecording:
+            if tempAudioFilePath != audioFilePath && tempAudioFilePath != nil {
+                delegate?.audioRecorderController(self, didFinishWithAudioAtPath: nil);
+            }
             self.dismissViewControllerAnimated(true, completion: nil);
             
         default:
             if let audioFilePath = audioFilePath where tempAudioFilePath != audioFilePath {
                 delegate?.audioRecorderController(self, didFinishWithAudioAtPath: audioFilePath);
+            } else if tempAudioFilePath != audioFilePath {
+                delegate?.audioRecorderController(self, didFinishWithAudioAtPath: nil);
             }
             
             self.dismissViewControllerAnimated(true, completion: nil);
