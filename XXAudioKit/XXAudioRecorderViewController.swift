@@ -61,7 +61,7 @@ public class XXAudioRecorderViewController: UIViewController, AVAudioRecorderDel
         self.init();
         tempAudioFilePath = audioFilePath;
         self.audioFilePath = audioFilePath;
-        status = .PreRecording;
+        status = .PrePlayback;
     }
  
     override public func viewDidLoad() {
